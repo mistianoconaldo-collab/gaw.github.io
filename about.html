@@ -7,82 +7,104 @@
   <meta name="description" content="Learn about GAW Inc — a digital creative powerhouse blending art, technology, and storytelling to build timeless brands.">
   <meta name="keywords" content="GAW Inc, about, creative agency, branding, web design, innovation, Ghana">
   <meta name="author" content="GAW Inc">
-
-  <link rel="icon" href="faviocn.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --gold: #FFD700;
+      --bg-black: #0a0a0a;
+      --glass: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 215, 0, 0.15);
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Poppins', Arial, sans-serif;
-      background: linear-gradient(-45deg, #000, #111, #000, #111);
-      background-size: 400% 400%;
-      animation: gradientFlow 12s ease infinite;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-black);
       color: #f5f5f5;
-      text-align: center;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    /* --- Navigation --- */
     nav {
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(6px);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     nav a {
-      color: #FFD700;
+      color: #fff;
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s;
+      margin-left: 25px;
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s;
     }
 
-    nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #FFD700;
+    nav a:hover { color: var(--gold); }
+
+    nav img { height: 40px; border-radius: 50%; }
+
+    /* --- Header Section --- */
+    header {
+      padding: 180px 20px 80px;
+      background: radial-gradient(circle at top, #1a1a1a 0%, #0a0a0a 100%);
+      text-align: center;
     }
 
     h1 {
-      color: #FFD700;
-      font-size: 3em;
-      margin-top: 120px;
-      text-shadow: 0 0 15px rgba(255,215,0,0.5);
-      animation: glowPulse 2.5s infinite alternate;
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin-bottom: 20px;
+      letter-spacing: -1px;
     }
 
-    @keyframes glowPulse {
-      from { text-shadow: 0 0 10px rgba(255,215,0,0.3); }
-      to { text-shadow: 0 0 25px rgba(255,215,0,1); }
+    .intro {
+      max-width: 750px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: #bbb;
+      font-weight: 300;
     }
 
-    p.intro {
-      max-width: 700px;
-      margin: 20px auto 60px;
-      font-size: 1.2em;
-      line-height: 1.6;
+    /* --- Content Sections --- */
+    .content-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
     section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
+      margin-bottom: 40px;
+      padding: 60px 40px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      text-align: left;
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
     }
 
     section.visible {
@@ -91,112 +113,126 @@
     }
 
     h2 {
-      color: #FFD700;
-      font-size: 1.8em;
-      margin-bottom: 15px;
-      text-transform: uppercase;
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
-    p {
-      font-size: 1.05em;
-      line-height: 1.8;
-      color: #ddd;
+    h2::after {
+      content: "";
+      height: 1px;
+      flex-grow: 1;
+      background: var(--border);
     }
 
-    hr {
-      border: none;
-      height: 2px;
-      background: #FFD700;
-      width: 60%;
-      margin: 60px auto;
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
     }
 
+    .value-card h3 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .value-card p {
+      font-size: 0.95rem;
+      color: #999;
+    }
+
+    /* --- Footer --- */
     footer {
-      background: #111;
-      color: #FFD700;
-      padding: 20px;
-      font-size: 0.95em;
-      margin-top: 60px;
+      padding: 60px 20px;
+      text-align: center;
+      border-top: 1px solid #1a1a1a;
+      margin-top: 80px;
+    }
+
+    footer p { color: #555; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      section { padding: 40px 25px; }
+      nav .container { justify-content: center; flex-direction: column; gap: 15px; }
+      nav a { margin: 0 10px; }
     }
   </style>
 </head>
 <body>
 
- <nav>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-    <img src="using.png" alt="GAW Inc Logo" style="height: 50px; width: 50px; border-radius: 50%; box-shadow: 0 0 10px rgba(255,215,0,0.5);">
-    <div>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="service.html">Services</a>
-      <a href="contact.html">Contact</a>
+  <nav>
+    <div class="container">
+      <img src="using.png" alt="GAW Inc Logo">
+      <div>
+        <a href="index.html">Home</a>
+        <a href="about.html" style="color: var(--gold);">About</a>
+        <a href="service.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
+  </nav>
+
+  <header>
+    <h1>The GAW Ethos</h1>
+    <p class="intro">We are a digital workshop where artistry meets high-performance technology, turning raw ideas into legacies.</p>
+  </header>
+
+  <div class="content-wrapper">
+    <section>
+      <h2>Who We Are</h2>
+      <p>
+        GAW Inc is more than an agency; it is a collective of designers, architects, and visionaries. Based in Ghana with a global pulse, we build digital experiences rooted in human connection. We believe that technology should never feel cold—it should feel like art in motion.
+      </p>
+    </section>
+
+    <section>
+      <h2>Our Mission</h2>
+      <p>
+        To bridge the gap between imagination and execution. We empower brands to communicate with authority and beauty, ensuring that every pixel serves a purpose and every line of code tells a story.
+      </p>
+    </section>
+
+    <section>
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <h3>Creativity</h3>
+          <p>We choose experimentation over the "safe" path, every single time.</p>
+        </div>
+        <div class="value-card">
+          <h3>Integrity</h3>
+          <p>Transparency is the foundation of every brand we build.</p>
+        </div>
+        <div class="value-card">
+          <h3>Innovation</h3>
+          <p>Chasing the future while respecting the roots of classic design.</p>
+        </div>
+      </div>
+    </section>
   </div>
-</nav>
-
-
-  <h1>About GAW Inc</h1>
-  <p class="intro">We’re more than a creative agency — we’re a digital workshop where artistry meets technology and ideas turn into timeless experiences.</p>
-
-  <section>
-    <h2>Who We Are</h2>
-    <p>
-      GAW Inc is a collective of designers, developers, and storytellers.  
-      We build digital experiences rooted in creativity, emotion, and connection.  
-      Every project we craft aims to blend beauty and purpose — merging the past’s artistry with the future’s innovation.
-    </p>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Our Mission</h2>
-    <p>
-      To empower brands to communicate boldly through design and technology.  
-      We strive to turn ideas into experiences that move people — visually, emotionally, and intellectually.
-    </p>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Our Vision</h2>
-    <p>
-      A world where creativity bridges every digital divide.  
-      Where storytelling, artistry, and technology unite to create digital spaces that *feel human* again.
-    </p>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Our Values</h2>
-    <p>
-      <strong>Creativity:</strong> We celebrate originality and experimentation.<br>
-      <strong>Integrity:</strong> We build trust through transparency and quality.<br>
-      <strong>Innovation:</strong> We chase the future without forgetting the roots.<br>
-      <strong>Connection:</strong> Every design we make has one goal — to connect deeply.
-    </p>
-  </section>
 
   <footer>
-    <p>&copy; 2025 GAW Inc. All Rights Reserved.</p>
+    <p>&copy; 2026 GAW Inc. All Rights Reserved.</p>
   </footer>
 
   <script>
-    const sections = document.querySelectorAll('section');
-    const reveal = () => {
-      const trigger = window.innerHeight / 1.2;
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < trigger) {
-          section.classList.add('visible');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
       });
-    };
-    window.addEventListener('scroll', reveal);
-    reveal();
-  </script>
+    }, { threshold: 0.1 });
 
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
