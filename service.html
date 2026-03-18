@@ -3,151 +3,245 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GAW Inc | Services</title>
+  <title>Services - GAW Inc</title>
   <meta name="description" content="Explore GAW Inc’s creative and digital services — from brand identity to web development and visual storytelling.">
   <meta name="keywords" content="GAW Inc, services, web design, branding, creative agency, Ghana, development">
   <meta name="author" content="GAW Inc">
-  <link rel="icon" href="faviocn.png" type="image/png">
+  <link rel="icon" href="using.png" type="image/png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --gold: #FFD700;
+      --bg-black: #0a0a0a;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 215, 0, 0.15);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Poppins', Arial, sans-serif;
-      background-color: #000;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-black);
       color: #f5f5f5;
-      text-align: center;
+      line-height: 1.6;
       overflow-x: hidden;
-      scroll-behavior: smooth;
     }
 
+    /* --- Navigation --- */
     nav {
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(6px);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     nav a {
-      color: #FFD700;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-
-    nav a:hover {
       color: #fff;
-      text-shadow: 0 0 8px #FFD700;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s;
     }
 
-    nav img {
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255,215,0,0.5);
-      vertical-align: middle;
-      margin-right: 15px;
-    }
+    nav a:hover { color: var(--gold); }
+    nav img { height: 40px; border-radius: 50%; }
 
+    /* --- Header --- */
     header {
-      padding-top: 100px;
-      color: #FFD700;
-      font-size: 2.5em;
-      text-shadow: 0 0 15px rgba(255,215,0,0.5);
-      margin-bottom: 40px;
+      padding: 160px 20px 60px;
+      text-align: center;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+    }
+
+    header h1 {
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #888;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* --- Services Grid --- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
     section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 40px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(255,215,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: var(--glass);
+      padding: 50px 30px;
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      text-align: left;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
     }
 
     section:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(255,215,0,0.3);
+      transform: translateY(-10px);
+      background: rgba(255, 215, 0, 0.05);
+      border-color: var(--gold);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: block;
     }
 
     h2 {
-      color: #FFD700;
-      font-size: 1.8em;
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: 1.5rem;
       margin-bottom: 15px;
+      letter-spacing: -0.5px;
     }
 
     p {
-      font-size: 1.1em;
-      color: #ddd;
+      font-size: 0.95rem;
+      color: #bbb;
       line-height: 1.8;
     }
 
+    /* --- CTA Footer --- */
+    .services-cta {
+      margin: 80px 20px;
+      padding: 60px;
+      background: linear-gradient(rgba(255, 215, 0, 0.1), transparent);
+      border-radius: 30px;
+      display: inline-block;
+      width: calc(100% - 40px);
+      max-width: 1200px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 15px 35px;
+      background: var(--gold);
+      color: #000;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      transform: scale(1.05);
+    }
+
     footer {
-      background: #111;
-      color: #FFD700;
-      padding: 20px;
-      margin-top: 80px;
-      font-size: 0.95em;
+      background: #050505;
+      padding: 60px 20px;
+      border-top: 1px solid #1a1a1a;
+      text-align: center;
+    }
+
+    footer p { color: #555; font-size: 0.85rem; margin-top: 15px; }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; }
+      header { padding-top: 120px; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <div style="display:flex; align-items:center; justify-content:center; gap:20px;">
+    <div class="container">
       <img src="using.png" alt="GAW Inc Logo">
       <div>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="service.html">Services</a>
+        <a href="service.html" style="color: var(--gold);">Services</a>
         <a href="contact.html">Contact</a>
       </div>
     </div>
   </nav>
 
-  <header>Our Services</header>
+  <header>
+    <h1>Capabilities</h1>
+    <p>Precision tools for a digital world. We combine technical rigor with artistic intuition.</p>
+  </header>
 
-  <section>
-    <h2>Web Design & Development</h2>
-    <p>
-      We design and build websites that are as functional as they are beautiful.  
-      Every pixel, animation, and line of code is crafted to bring your brand to life online — fast, secure, and unforgettable.
-    </p>
-  </section>
+  <main class="services-grid">
+    <section>
+      <span class="service-icon">💻</span>
+      <h2>Web Engineering</h2>
+      <p>
+        We build high-performance digital hubs. Beyond aesthetics, we prioritize speed, responsiveness, and clean architecture to ensure your brand lives flawlessly on every screen.
+      </p>
+    </section>
 
-  <section>
-    <h2>Brand Identity & Visual Design</h2>
-    <p>
-      Your brand deserves to be seen — and remembered.  
-      We create logos, colors, and visual systems that capture your essence and stand the test of time.
-    </p>
-  </section>
+    <section>
+      <span class="service-icon">🎨</span>
+      <h2>Brand Identity</h2>
+      <p>
+        A logo is just the beginning. We develop full visual languages—color theory, typography, and motion guidelines—that define how your brand speaks to the world.
+      </p>
+    </section>
 
-  <section>
-    <h2>Content Creation & Motion Graphics</h2>
-    <p>
-      From short-form reels to cinematic brand stories, we transform ideas into visual experiences.  
-      Our motion graphics team blends rhythm, emotion, and clarity to make your message unforgettable.
-    </p>
-  </section>
+    <section>
+      <span class="service-icon">🎥</span>
+      <h2>Motion & Content</h2>
+      <p>
+        In an era of short attention spans, we create high-impact motion graphics and cinematic content that stops the scroll and starts the conversation.
+      </p>
+    </section>
 
-  <section>
-    <h2>Photography & Videography</h2>
-    <p>
-      We capture more than moments — we capture mood, texture, and truth.  
-      Whether for campaigns, portraits, or products, our visuals make your brand feel alive.
-    </p>
-  </section>
+    <section>
+      <span class="service-icon">📸</span>
+      <h2>Visual Assets</h2>
+      <p>
+        Mood, texture, and light. Our photography and videography services are designed to give your brand a premium, human touch that stock images simply can't match.
+      </p>
+    </section>
+  </main>
+
+  <div style="text-align: center;">
+    <div class="services-cta">
+      <h2>Ready to start your movement?</h2>
+      <p>Every legendary brand starts with a single conversation.</p>
+      <a href="contact.html" class="btn">Start a Project</a>
+    </div>
+  </div>
 
   <footer>
-    <img src="using.png" alt="GAW Inc Logo" style="height:40px; width:40px; margin-bottom:10px; opacity:0.8;">
-    <p>&copy; 2025 GAW Inc. All Rights Reserved.</p>
+    <img src="using.png" alt="GAW Inc Logo" style="height:35px; opacity:0.3; filter: grayscale(1);">
+    <p>&copy; 2026 GAW Inc. All Rights Reserved.</p>
   </footer>
 
 </body>
