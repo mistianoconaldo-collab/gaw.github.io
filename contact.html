@@ -8,198 +8,268 @@
   <meta name="keywords" content="GAW Inc, contact, web development, creative agency, Ghana, branding">
   <meta name="author" content="GAW Inc">
 
-  <link rel="icon" href="faviocn.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --gold: #FFD700;
+      --bg-black: #0a0a0a;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 215, 0, 0.15);
+      --input-bg: rgba(255, 255, 255, 0.05);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Poppins', Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-black);
       color: #f5f5f5;
-      text-align: center;
-      background: linear-gradient(-45deg, #000, #111, #000, #222);
-      background-size: 400% 400%;
-      animation: gradientFlow 12s ease infinite;
+      line-height: 1.6;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    /* --- Navigation --- */
     nav {
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(6px);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     nav a {
-      color: #FFD700;
+      color: #fff;
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s;
+      margin-left: 25px;
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s;
     }
 
-    nav a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px #FFD700;
+    nav a:hover { color: var(--gold); }
+    nav img { height: 40px; border-radius: 50%; }
+
+    /* --- Header --- */
+    header {
+      padding: 160px 20px 40px;
+      text-align: center;
     }
 
     h1 {
-      color: #FFD700;
-      font-size: 2.5em;
-      margin-top: 120px;
-      text-shadow: 0 0 15px rgba(255,215,0,0.5);
-      animation: glowPulse 2.5s infinite alternate;
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      margin-bottom: 15px;
     }
 
-    @keyframes glowPulse {
-      from { text-shadow: 0 0 10px rgba(255,215,0,0.3); }
-      to { text-shadow: 0 0 25px rgba(255,215,0,1); }
+    .subtitle {
+      color: #bbb;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
     }
 
-    p {
-      margin: 20px auto 40px;
-      max-width: 700px;
-      line-height: 1.6;
-      font-size: 1.1em;
+    /* --- Contact Form Section --- */
+    .contact-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
     }
 
     form {
-      max-width: 450px;
-      margin: 0 auto 60px;
+      width: 100%;
+      max-width: 550px;
+      background: var(--glass);
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: formAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes formAppear {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .field-group {
+      margin-bottom: 25px;
       text-align: left;
-      background: rgba(0, 0, 0, 0.85);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      animation: fadeIn 2s ease;
     }
 
     label {
-      color: #FFD700;
-      font-weight: bold;
-      font-size: 1em;
+      display: block;
+      color: var(--gold);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      font-weight: 600;
     }
 
     input, textarea {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0 20px 0;
-      border: 1px solid #FFD700;
-      border-radius: 6px;
-      background: #000;
+      padding: 15px;
+      background: var(--input-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
       color: #fff;
-      font-size: 1em;
-      transition: border 0.3s, box-shadow 0.3s;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
     }
 
     input:focus, textarea:focus {
       outline: none;
-      border-color: #FFD700;
-      box-shadow: 0 0 10px rgba(255,215,0,0.6);
-    }
-
-    input::placeholder, textarea::placeholder {
-      color: #888;
+      border-color: var(--gold);
+      background: rgba(255, 215, 0, 0.05);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
     }
 
     button {
-      background: #FFD700;
+      width: 100%;
+      padding: 18px;
+      background: var(--gold);
       color: #000;
-      padding: 12px 24px;
       border: none;
-      border-radius: 6px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       cursor: pointer;
-      font-weight: bold;
-      display: block;
-      margin: 0 auto;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
+      margin-top: 10px;
     }
 
     button:hover {
-      background: #C9A227;
-      transform: scale(1.05);
+      background: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
     }
 
-    .success {
-      margin-top: 20px;
-      color: #00ff9d;
-      font-weight: bold;
+    button:active { transform: translateY(-1px); }
+
+    .success-banner {
       display: none;
+      background: rgba(0, 255, 157, 0.1);
+      border: 1px solid #00ff9d;
+      color: #00ff9d;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
 
+    /* --- Footer --- */
     footer {
-      background: #111;
-      color: #FFD700;
-      padding: 20px;
-      font-size: 0.95em;
-      margin-top: 40px;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid #1a1a1a;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    footer p { color: #555; font-size: 0.85rem; }
+
+    @media (max-width: 600px) {
+      form { padding: 25px; }
+      header { padding-top: 120px; }
     }
   </style>
 </head>
 <body>
 
- <nav>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-    <img src="using.png" alt="GAW Inc Logo" style="height: 50px; width: 50px; border-radius: 50%; box-shadow: 0 0 10px rgba(255,215,0,0.5);">
-    <div>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="service.html">Services</a>
-      <a href="contact.html">Contact</a>
+  <nav>
+    <div class="container">
+      <img src="using.png" alt="GAW Inc Logo">
+      <div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Services</a>
+        <a href="contact.html" style="color: var(--gold);">Contact</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
+  <header>
+    <h1>Let's Connect</h1>
+    <p class="subtitle">Whether you have a fully-formed project or just the spark of an idea, we're ready to listen.</p>
+  </header>
 
-  <h1>Contact GAW Inc</h1>
-  <p>Got a vision, idea, or project? Let’s build something unforgettable together.</p>
+  <main class="contact-container">
+    <form id="contactForm">
+      <div class="field-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="John Doe" required>
+      </div>
 
-  <form id="contactForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      <div class="field-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+      </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      <div class="field-group">
+        <label for="message">Your Vision</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
+      </div>
 
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-
-    <button type="submit">Send Message</button>
-    <p class="success" id="successMsg">✅ Message sent successfully! We'll get back to you soon.</p>
-  </form>
+      <button type="submit" id="submitBtn">Transmit Message</button>
+      
+      <div class="success-banner" id="successMsg">
+        ✨ Connection established. We'll reach out shortly.
+      </div>
+    </form>
+  </main>
 
   <footer>
-    <p>&copy; 2025 GAW Inc. All Rights Reserved.</p>
+    <p>&copy; 2026 GAW Inc. All Rights Reserved.</p>
   </footer>
 
   <script>
     const form = document.getElementById('contactForm');
     const msg = document.getElementById('successMsg');
+    const btn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', e => {
       e.preventDefault();
-      msg.style.display = 'block';
-      form.reset();
-      setTimeout(() => msg.style.display = 'none', 4000);
+      
+      // Visual feedback for clicking
+      btn.innerText = "Sending...";
+      btn.style.opacity = "0.7";
+      btn.style.pointerEvents = "none";
+
+      // Simulate network delay
+      setTimeout(() => {
+        msg.style.display = 'block';
+        btn.innerText = "Message Sent";
+        btn.style.background = "transparent";
+        btn.style.border = "1px solid var(--gold)";
+        btn.style.color = "var(--gold)";
+        
+        form.reset();
+      }, 1500);
     });
   </script>
 
