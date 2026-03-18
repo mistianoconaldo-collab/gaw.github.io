@@ -7,117 +7,128 @@
   <meta name="description" content="GAW Inc transforms creativity into digital power — where artistry meets code and brands become timeless.">
   <meta name="keywords" content="GAW Inc, creative agency, branding, website design, digital art, Ghana">
   <meta name="author" content="GAW Inc">
-  <link rel="icon" href="faviocn.png" type="image/png">
+  <link rel="icon" href="favicon.png" type="image/png">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --gold: #FFD700;
+      --dark-gold: #C9A227;
+      --bg-black: #0a0a0a;
+      --text-gray: #b0b0b0;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Poppins', Arial, sans-serif;
-      background: #000;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-black);
       color: #f5f5f5;
       text-align: center;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
+    /* --- Navigation Update --- */
     nav {
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(6px);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     nav a {
-      color: #FFD700;
+      color: #fff;
       text-decoration: none;
-      margin: 0 15px;
-      font-weight: 600;
-      transition: color 0.3s, text-shadow 0.3s;
+      margin-left: 25px;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: 0.3s;
     }
 
-    nav a:hover { color: #fff; text-shadow: 0 0 8px #FFD700; }
+    nav a:hover { color: var(--gold); }
 
     nav img {
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255,215,0,0.5);
-      vertical-align: middle;
-      margin-right: 15px;
+      height: 40px;
+      transition: transform 0.3s ease;
     }
 
+    /* --- Hero Section Update --- */
     .hero {
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(-45deg, #111, #000, #111, #000);
-      background-size: 400% 400%;
-      animation: gradientFlow 12s ease infinite, fadeIn 1.5s ease-out;
-      padding: 0 10px;
-    }
-
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      padding: 0 20px;
+      position: relative;
     }
 
     .hero h1 {
-      color: #FFD700;
-      font-size: 3.8em;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(255,215,0,0.6);
-      animation: glowPulse 2.5s infinite alternate;
-    }
-
-    @keyframes glowPulse {
-      from { text-shadow: 0 0 10px rgba(255,215,0,0.3); }
-      to { text-shadow: 0 0 25px rgba(255,215,0,1); }
+      font-family: 'Poppins', sans-serif;
+      color: var(--gold);
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
     }
 
     .hero p {
-      font-size: 1.2em;
-      color: #ccc;
-      max-width: 800px;
-      margin-top: 15px;
-      line-height: 1.7;
+      font-size: 1.1em;
+      color: var(--text-gray);
+      max-width: 700px;
+      margin-bottom: 40px;
     }
 
+    /* --- Button Polish --- */
     .cta-btn {
-      margin-top: 30px;
-      padding: 14px 35px;
-      background: #FFD700;
+      padding: 16px 40px;
+      background: var(--gold);
       color: #000;
       border: none;
-      border-radius: 10px;
+      border-radius: 50px;
       font-weight: 700;
-      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .cta-btn:hover {
-      background: #C9A227;
-      transform: scale(1.08);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+      background: #fff;
     }
 
+    /* --- Sections Update --- */
     section {
-      padding: 100px 20px;
+      padding: 120px 20px;
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease;
-      max-width: 1000px;
-      margin: 0 auto;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+      max-width: 900px;
+      margin: 40px auto;
+      background: var(--glass);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     section.visible {
@@ -126,42 +137,46 @@
     }
 
     h2 {
-      color: #FFD700;
-      font-size: 1.8em;
-      text-transform: uppercase;
-      margin-bottom: 15px;
+      color: var(--gold);
+      font-size: 2rem;
+      margin-bottom: 25px;
+      font-family: 'Poppins', sans-serif;
     }
 
-    p {
-      font-size: 1.1em;
-      color: #ddd;
-      line-height: 1.8;
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
+    /* --- Footer --- */
     footer {
-      background: #111;
-      color: #FFD700;
-      padding: 25px;
-      margin-top: 60px;
-      font-size: 0.95em;
+      background: #050505;
+      padding: 60px 20px;
+      border-top: 1px solid #1a1a1a;
     }
 
-    footer img {
-      height: 40px;
-      width: 40px;
-      margin-bottom: 10px;
-      opacity: 0.8;
+    footer p { color: #555; font-size: 0.85rem; margin-top: 20px; }
+
+    /* Scroll Indicator Animation */
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      width: 2px;
+      height: 50px;
+      background: linear-gradient(transparent, var(--gold));
+      animation: scrollMove 2s infinite;
+    }
+
+    @keyframes scrollMove {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-      <img src="using.png" alt="GAW Inc Logo">
+    <div class="container">
+      <div style="display: flex; align-items: center;">
+        <img src="using.png" alt="GAW Inc Logo">
+      </div>
       <div>
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -171,54 +186,52 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <div class="hero">
-    <h1>GAW Inc</h1>
-    <p>We are the artists of the digital age — crafting visuals, code, and motion that speak louder than words.  
-    Every design we make is a pulse from the future, every project a story with a golden heartbeat.  
-    We don’t just create brands; we build legacies that echo across screens and generations.</p>
+    <h1>GAW INC</h1>
+    <p>We are the architects of the digital age — fusing gold-standard code with timeless artistry to build legacies that echo through the screen.</p>
     <button class="cta-btn" onclick="location.href='about.html'">Enter the Vision</button>
+    <div class="scroll-down"></div>
   </div>
 
-  <!-- What We Are Section -->
   <section>
-    <h2>About Us</h2>
+    <h2>Identity & Heritage</h2>
     <p>
-      <strong>GAW Inc</strong> stands at the intersection of tradition and technology.  
-      Born from a love for timeless artistry and the relentless drive of innovation,  
-      we fuse imagination with precision to create experiences that inspire emotion and purpose.  
-      Our craft goes beyond aesthetics — it’s about identity, culture, and impact.
+      At <strong>GAW Inc</strong>, we bridge the gap between human intuition and technical precision. 
+      Born in Ghana, fueled by global vision, we create digital ecosystems that aren't just seen—they're felt.
     </p>
   </section>
 
-  <!-- Why We Exist Section -->
   <section>
-    <h2>Our Philosophy</h2>
+    <h2>The Philosophy</h2>
     <p>
-      We believe every idea deserves a stage and every brand deserves a story.  
-      That’s why our work combines bold design with technical mastery, ensuring that every creation feels alive.  
-      Whether it’s a website, a campaign, or a full digital ecosystem, we build it to last — not for the moment, but for the movement.
+      We don’t believe in "trends." We believe in <strong>movements</strong>. 
+      Our work is built on the principle that technical mastery is the canvas, and bold design is the paint. 
+      Together, they create impact that lasts.
     </p>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <img src="using.png" alt="GAW Inc Logo">
-    <p>&copy; 2025 GAW Inc. All Rights Reserved.</p>
+    <img src="using.png" alt="GAW Inc Logo" style="opacity: 0.5; height: 30px;">
+    <p>&copy; 2026 GAW Inc. Crafted for the future.</p>
   </footer>
 
   <script>
-    const sections = document.querySelectorAll('section');
-    const reveal = () => {
-      const trigger = window.innerHeight / 1.2;
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < trigger) section.classList.add('visible');
-      });
+    // Improved Intersection Observer for smoother revealing
+    const observerOptions = {
+      threshold: 0.2
     };
-    window.addEventListener('scroll', reveal);
-    reveal();
-  </script>
 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
