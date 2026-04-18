@@ -4,36 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAW Inc. | Digital Architecture</title>
-    
-    <link rel="icon" type="image/png" href="using.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --gold: #BF953F;
-            --gold-light: #FCF6BA;
-            --bg: #050505;
-        }
+        /* Modern Reset & Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; background: #f4f4f4; }
+        
+        /* Container */
+        .container { max-width: 1100px; margin: auto; padding: 0 20px; }
+        
+        /* Header */
+        header { padding: 40px 0; text-align: center; }
+        .logo { width: 100px; height: auto; }
+        
+        /* Grid Layout for Features */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 50px 0; }
+        .card { background: white; padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        /* Buttons */
+        .btn { display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) { h1 { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
 
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg); color: #ffffff; font-family: 'Inter', sans-serif; }
+    <header>
+        <img src="using.png" alt="GAW Logo" class="logo">
+        <h1>GAW Inc.</h1>
+        <p>The Ultimate Digital Authority</p>
+    </header>
 
-        .gold-gradient {
-            background: linear-gradient(to right, var(--gold), var(--gold-light), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: goldShine 5s linear infinite;
-        }
+    <main class="container">
+        <section class="features">
+            <div class="card">
+                <h3>Immediate Chat</h3>
+                <p>Direct line for consulting.</p>
+                <a href="#" class="btn">Launch WhatsApp</a>
+            </div>
+            <div class="card">
+                <h3>Start Project</h3>
+                <p>Formal inquiries for design.</p>
+                <a href="#" class="btn">Brief the Studio</a>
+            </div>
+            <div class="card">
+                <h3>Partnership</h3>
+                <p>Collaborate with our ecosystem.</p>
+                <a href="#" class="btn">Collaborate</a>
+            </div>
+        </section>
+    </main>
 
-        @keyframes goldShine { to { background-position: 200% center; } }
+    <footer style="text-align: center; padding: 20px;">
+        <p>&copy; 2026 GAW Inc. • Accra</p>
+    </footer>
 
-        /* The Heartbeat Bar Icon */
-        .five-icon {
-            display: flex;
-            gap: 2px;
+</body>
+</html>
             align-items: flex-end;
             height: 14px;
         }
