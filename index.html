@@ -4,93 +4,209 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAW Inc. | Digital Architecture</title>
+    
+    <link rel="icon" type="image/png" href="using.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Base Styles */
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            margin: 0;
+        :root {
+            --gold: #BF953F;
+            --gold-light: #FCF6BA;
+            --bg: #050505;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: #ffffff; font-family: 'Inter', sans-serif; }
+
+        .gold-gradient {
+            background: linear-gradient(to right, var(--gold), var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: goldShine 5s linear infinite;
+        }
+
+        @keyframes goldShine { to { background-position: 200% center; } }
+
+        /* The Heartbeat Bar Icon */
+        .five-icon {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            gap: 2px;
+            align-items: flex-end;
+            height: 14px;
+        }
+        .five-icon span {
+            width: 3px;
+            background: var(--gold);
+            border-radius: 1px;
+            animation: barPulse 2s infinite ease-in-out;
+        }
+        .five-icon span:nth-child(1) { height: 20%; animation-delay: 0.1s; }
+        .five-icon span:nth-child(2) { height: 40%; animation-delay: 0.2s; }
+        .five-icon span:nth-child(3) { height: 70%; animation-delay: 0.3s; }
+        .five-icon span:nth-child(4) { height: 90%; animation-delay: 0.4s; }
+        .five-icon span:nth-child(5) { height: 100%; animation-delay: 0.5s; }
+
+        @keyframes barPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
         }
 
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            padding: 40px 0;
+        /* Enriched Portfolio Interaction */
+        .project-card { cursor: pointer; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .project-img {
+            filter: grayscale(100%) brightness(0.6);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .project-card:hover .project-img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.12);
         }
 
-        header { text-align: center; margin-bottom: 60px; }
-        .logo { width: 120px; margin-bottom: 10px; }
-        h1 { font-size: 2.5rem; letter-spacing: -1px; margin: 10px 0; }
-
-        /* Responsive Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        /* Gateway Cards */
+        .gateway-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .gateway-card:hover {
+            border-color: var(--gold);
+            background: rgba(191, 149, 63, 0.05);
+            transform: translateY(-12px);
         }
 
-        .card {
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover { border-color: #555; transform: translateY(-5px); }
-        .card h3 { margin-top: 0; color: #ccc; }
-
-        /* Button Styling */
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-        }
-
-        footer { margin-top: auto; padding: 40px; color: #666; font-size: 0.9rem; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <img src="using.png" alt="GAW Logo" class="logo">
-            <h1>GAW Inc.</h1>
-            <p>The Ultimate Digital Authority</p>
-        </header>
-
-        <section class="grid">
-            <div class="card">
-                <h3>Immediate Chat</h3>
-                <p>Direct line for consulting and real-time support.</p>
-                <a href="#" class="btn">Launch WhatsApp</a>
-            </div>
-            <div class="card">
-                <h3>Start Project</h3>
-                <p>Formal inquiries for high-end digital design.</p>
-                <a href="#" class="btn">Brief the Studio</a>
-            </div>
-            <div class="card">
-                <h3>Partnership</h3>
-                <p>Collaborate within the GAW ecosystem.</p>
-                <a href="#" class="btn">Collaborate</a>
-            </div>
-        </section>
+    <div id="loader" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700">
+        <div class="flex flex-col items-center gap-6">
+            <img src="using.png" alt="GAW Logo" class="w-20 h-20 animate-pulse">
+            <h1 class="text-xl font-bold tracking-[1.2em] gold-gradient uppercase">GAW Inc.</h1>
+        </div>
     </div>
 
-    <footer>
-        &copy; 2026 GAW Inc. • Accra
+    <nav class="fixed w-full z-50 flex justify-between items-center px-8 py-6 backdrop-blur-xl bg-black/30 border-b border-white/5">
+        <div class="flex items-center gap-4">
+            <img src="using.png" alt="GAW" class="w-8 h-8">
+            <div class="text-xl font-black gold-gradient tracking-tighter">GAW Inc.</div>
+            <div class="five-icon ml-2 hidden sm:flex"><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.4em] font-bold">
+            <a href="#work" class="hover:text-amber-500 transition">Works</a>
+            <a href="#gateways" class="hover:text-amber-500 transition">Connect</a>
+        </div>
+    </nav>
+
+    <section class="h-screen flex flex-col justify-center items-center text-center px-6">
+        <div class="reveal">
+            <img src="using.png" alt="Logo" class="w-24 h-24 mx-auto mb-8 opacity-90 drop-shadow-[0_0_15px_rgba(191,149,63,0.3)]">
+            <h1 class="text-7xl md:text-[11rem] font-bold mb-4 leading-none" style="font-family: 'Playfair Display', serif;">
+                GAW <span class="gold-gradient italic">Inc.</span>
+            </h1>
+            <p class="text-gray-500 tracking-[0.7em] uppercase text-[9px] mb-12">The Ultimate Digital Authority</p>
+            <a href="#gateways" class="px-12 py-5 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] hover:bg-amber-600 transition-all">Establish Connection</a>
+        </div>
+    </section>
+
+    <section id="work" class="py-24 px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="reveal project-card aspect-video group">
+            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000" class="project-img w-full h-full object-cover">
+        </div>
+        <div class="reveal project-card aspect-video group">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" class="project-img w-full h-full object-cover">
+        </div>
+    </section>
+
+    <section id="gateways" class="py-32 px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 italic">Direct <span class="gold-gradient">Pathways.</span></h2>
+            <p class="text-gray-500 text-[9px] uppercase tracking-[0.5em]">Secure Communications</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div onclick="handleWhatsApp()" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer">
+                <div>
+                    <div class="mb-8 flex justify-center">
+                        <img src="Wa-whatsapp-icon.svg" alt="WhatsApp" class="w-12 h-12">
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Immediate Chat</h3>
+                    <p class="text-gray-500 text-xs mb-8">Direct line for consulting and real-time support.</p>
+                </div>
+                <button class="w-full py-4 bg-[#25D366] text-black font-black uppercase text-[9px] tracking-[0.3em]">Launch WhatsApp</button>
+            </div>
+
+            <div onclick="triggerEmail('Project Request')" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer" style="transition-delay: 0.1s;">
+                <div>
+                    <div class="mb-8 flex justify-center">
+                        <img src="using.png" alt="Project Icon" class="w-12 h-12 opacity-80 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Start Project</h3>
+                    <p class="text-gray-500 text-xs mb-8">Formal inquiries for high-end digital design and development.</p>
+                </div>
+                <button class="w-full py-4 bg-white text-black font-black uppercase text-[9px] tracking-[0.3em]">Brief the Studio</button>
+            </div>
+
+            <div onclick="triggerEmail('Partnership/Ad')" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer" style="transition-delay: 0.2s;">
+                <div>
+                    <div class="mb-8 flex justify-center text-amber-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Partnership</h3>
+                    <p class="text-gray-500 text-xs mb-8">Collaborate or advertise within the GAW Inc. ecosystem.</p>
+                </div>
+                <button class="w-full py-4 border border-white/20 text-white font-black uppercase text-[9px] tracking-[0.3em]">Collaborate</button>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="py-12 text-center border-t border-white/5 opacity-40 text-[9px] uppercase tracking-[1em]">
+        © 2026 GAW Inc. • Accra
     </footer>
 
+    <script>
+        // Animations Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').remove(), 700);
+                const obs = new IntersectionObserver((es) => {
+                    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            }, 1000);
+        });
+
+        // WhatsApp
+        function handleWhatsApp() {
+            const n = "233270414145";
+            const m = encodeURIComponent("Hello GAW Inc., I'm reaching out through your platform.");
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                window.location.href = `whatsapp://send?phone=${n}&text=${m}`;
+                setTimeout(() => { window.location.href = `https://wa.me/${n}?text=${m}`; }, 500);
+            } else {
+                window.open(`https://web.whatsapp.com/send?phone=${n}&text=${m}`, '_blank');
+            }
+        }
+
+        // Email Routing to avonxoase@gmail.com
+        function triggerEmail(type) {
+            const name = prompt("Identification Required: (Your Name or Brand)");
+            if (!name) return;
+
+            const u = "avonxoase";
+            const d = "gmail.com";
+            const subj = `[GAW Inc. ${type}] - From ${name}`;
+            const body = `Inquiry Path: ${type}\nOrigin: ${name}\n\n[Describe your requirements below]`;
+            
+            window.location.href = `mailto:${u}@${d}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
 </body>
-</html>
+        </html>
