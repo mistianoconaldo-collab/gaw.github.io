@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-[#050505]">
+<html lang="en" class="scroll-smooth bg-[#030712]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +14,9 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: '#BF953F',
-                        'gold-light': '#FCF6BA',
+                        cyanGlow: '#06b6d4',
+                        violetGlow: '#8b5cf6',
+                        'dark-card': 'rgba(17, 24, 39, 0.6)'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -29,25 +30,25 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <style>
         /* Custom Keyframes and Utilities */
-        .gold-gradient {
-            background: linear-gradient(90deg, #BF953F, #FCF6BA, #BF953F);
+        .neon-gradient {
+            background: linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
-            animation: goldShine 5s linear infinite;
+            animation: neonShine 5s linear infinite;
         }
 
-        @keyframes goldShine { 
+        @keyframes neonShine { 
             to { background-position: 200% center; } 
         }
 
         /* Heartbeat Bar Icon */
         .bar-pulse span {
-            background: #BF953F;
+            background: #06b6d4;
             border-radius: 1px;
             animation: barPulse 2s infinite ease-in-out;
         }
@@ -73,24 +74,61 @@
             opacity: 1; 
             transform: translateY(0); 
         }
+
+        /* Custom Cursor Styles */
+        @media (min-width: 1024px) {
+            body { cursor: none; }
+            a, button, [role="button"] { cursor: none; }
+        }
+        
+        #custom-cursor {
+            pointer-events: none;
+            transition: transform 0.15s ease-out, opacity 0.2s ease-in-out;
+            will-change: transform;
+        }
+
+        /* 3D Tilt Card Base */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Infinite Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
-<body class="bg-[#050505] text-white font-sans antialiased selection:bg-amber-500 selection:text-black">
+<body class="bg-[#030712] text-white font-sans antialiased selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+
+    <!-- Custom Ring Cursor (Desktop Only) -->
+    <div id="custom-cursor" class="fixed top-0 left-0 z-[999] hidden lg:block pointer-events-none -translate-x-1/2 -translate-y-1/2">
+        <div id="cursor-ring" class="w-8 h-8 rounded-full border border-cyan-400/60 transition-all duration-200 flex items-center justify-center">
+            <div id="cursor-dot" class="w-1 h-1 bg-cyan-400 rounded-full"></div>
+        </div>
+    </div>
 
     <!-- Preloader -->
-    <div id="loader" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700 pointer-events-none">
+    <div id="loader" class="fixed inset-0 z-[100] bg-[#030712] flex items-center justify-center transition-opacity duration-700 pointer-events-none">
         <div class="flex flex-col items-center gap-6">
             <img src="using.png" alt="GAW Logo" class="w-20 h-20 animate-pulse">
-            <h1 class="text-xl font-bold tracking-[1.2em] gold-gradient uppercase">GAW Inc.</h1>
+            <h1 class="text-xl font-bold tracking-[1.2em] neon-gradient uppercase">GAW Inc.</h1>
         </div>
     </div>
 
     <!-- Header / Navigation -->
     <header class="fixed w-full z-50">
-        <nav class="flex justify-between items-center px-6 md:px-12 py-5 backdrop-blur-xl bg-black/40 border-b border-white/5">
+        <nav class="flex justify-between items-center px-6 md:px-12 py-5 backdrop-blur-xl bg-[#030712]/60 border-b border-cyan-500/10">
             <a href="#" class="flex items-center gap-3 group">
                 <img src="using.png" alt="GAW" class="w-8 h-8 transition-transform group-hover:scale-105">
-                <span class="text-xl font-black gold-gradient tracking-tighter">GAW Inc.</span>
+                <span class="text-xl font-black neon-gradient tracking-tighter">GAW Inc.</span>
                 <div class="bar-pulse ml-2 hidden sm:flex gap-[2px] items-end h-3.5">
                     <span class="w-[3px]"></span>
                     <span class="w-[3px]"></span>
@@ -99,9 +137,21 @@
                     <span class="w-[3px]"></span>
                 </div>
             </a>
-            <div class="flex space-x-8 text-[10px] uppercase tracking-[0.4em] font-bold">
-                <a href="#work" class="text-gray-400 hover:text-amber-400 transition-colors duration-300">Works</a>
-                <a href="#gateways" class="text-gray-400 hover:text-amber-400 transition-colors duration-300">Connect</a>
+
+            <!-- Availability Badge & Links -->
+            <div class="flex items-center gap-6 md:gap-10">
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                    </span>
+                    <span class="text-[9px] uppercase tracking-[0.2em] font-semibold text-cyan-400">Available Q3/Q4</span>
+                </div>
+
+                <div class="flex space-x-6 md:space-x-8 text-[10px] uppercase tracking-[0.4em] font-bold">
+                    <a href="#work" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300">Works</a>
+                    <a href="#gateways" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300">Connect</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -110,33 +160,49 @@
         <!-- Hero Section -->
         <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
             <div class="reveal max-w-4xl mx-auto">
-                <img src="using.png" alt="GAW Emblem" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 opacity-90 drop-shadow-[0_0_20px_rgba(191,149,63,0.3)]">
+                <img src="using.png" alt="GAW Emblem" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 opacity-90 drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]">
                 <h1 class="text-6xl sm:text-8xl md:text-[11rem] font-bold mb-4 leading-none font-serif tracking-tight">
-                    GAW <span class="gold-gradient italic font-normal">Inc.</span>
+                    GAW <span class="neon-gradient italic font-normal">Inc.</span>
                 </h1>
-                <p class="text-gray-400 tracking-[0.5em] md:tracking-[0.7em] uppercase text-[9px] sm:text-[11px] mb-12">The Ultimate Digital Authority</p>
-                <a href="#gateways" class="inline-block px-10 py-4 md:px-12 md:py-5 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all duration-300 transform hover:-translate-y-0.5">
+                <p class="text-cyan-300/60 tracking-[0.5em] md:tracking-[0.7em] uppercase text-[9px] sm:text-[11px] mb-12">The Ultimate Digital Authority</p>
+                <a href="#gateways" class="inline-block px-10 py-4 md:px-12 md:py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[10px] font-black uppercase tracking-[0.3em] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 rounded-sm">
                     Establish Connection
                 </a>
             </div>
         </section>
 
+        <!-- Infinite Capabilities Marquee -->
+        <div class="w-full border-y border-cyan-500/10 py-4 bg-cyan-950/20 overflow-hidden whitespace-nowrap">
+            <div class="inline-flex gap-12 animate-marquee text-[10px] uppercase tracking-[0.5em] font-bold text-cyan-400/60">
+                <span>Enterprise Architecture</span> • <span>High-End Web3 Systems</span> • <span>Bespoke Digital Design</span> • <span>Brand Systems</span> • <span>Strategic Consulting</span> •
+                <span>Enterprise Architecture</span> • <span>High-End Web3 Systems</span> • <span>Bespoke Digital Design</span> • <span>Brand Systems</span> • <span>Strategic Consulting</span> •
+            </div>
+        </div>
+
         <!-- Portfolio Works Section -->
         <section id="work" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                 
-                <article class="reveal group relative aspect-video overflow-hidden rounded-sm border border-white/5 cursor-pointer">
+                <article class="reveal tilt-card group relative aspect-video overflow-hidden rounded-sm border border-cyan-500/20 bg-gray-950 cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000" 
                          alt="Digital Architecture Project" 
                          loading="lazy"
-                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-90 group-hover:scale-105 transition-all duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                        <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-cyan-400 mb-2">Architectural Engineering</span>
+                        <h3 class="text-2xl font-bold font-serif">Aether Nexus Platform</h3>
+                    </div>
                 </article>
 
-                <article class="reveal group relative aspect-video overflow-hidden rounded-sm border border-white/5 cursor-pointer" style="transition-delay: 0.15s;">
+                <article class="reveal tilt-card group relative aspect-video overflow-hidden rounded-sm border border-cyan-500/20 bg-gray-950 cursor-pointer" style="transition-delay: 0.15s;">
                     <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" 
                          alt="Cyber Ecosystem Project" 
                          loading="lazy"
-                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-90 group-hover:scale-105 transition-all duration-700 ease-out">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-8 flex flex-col justify-end">
+                        <span class="text-[9px] uppercase tracking-[0.4em] font-bold text-violet-400 mb-2">Hardware Integration</span>
+                        <h3 class="text-2xl font-bold font-serif">Cyber Core Matrix</h3>
+                    </div>
                 </article>
 
             </div>
@@ -145,8 +211,8 @@
         <!-- Direct Pathways Section -->
         <section id="gateways" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
             <div class="text-center mb-16 md:mb-20 reveal">
-                <h2 class="text-4xl md:text-6xl font-bold mb-4 font-serif italic">Direct <span class="gold-gradient">Pathways.</span></h2>
-                <p class="text-gray-500 text-[9px] uppercase tracking-[0.5em]">Secure Communications</p>
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 font-serif italic">Direct <span class="neon-gradient">Pathways.</span></h2>
+                <p class="text-cyan-400/60 text-[9px] uppercase tracking-[0.5em]">Secure Communications</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -156,7 +222,7 @@
                      tabindex="0"
                      role="button"
                      aria-label="Launch WhatsApp Chat"
-                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold">
+                     class="reveal tilt-card group bg-cyan-950/10 border border-cyan-500/20 hover:border-cyan-400 hover:bg-cyan-500/10 p-8 md:p-12 text-center flex flex-col justify-between rounded-sm transition-colors duration-500 focus:outline-none focus:ring-1 focus:ring-cyan-400">
                     <div>
                         <div class="mb-8 flex justify-center items-center h-12">
                             <img src="Wa-whatsapp-icon.svg" alt="WhatsApp" class="w-12 h-12 transition-transform group-hover:scale-110 duration-300">
@@ -164,17 +230,17 @@
                         <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Immediate Chat</h3>
                         <p class="text-gray-400 text-xs leading-relaxed mb-8">Direct line for consulting and real-time support.</p>
                     </div>
-                    <button class="w-full py-4 bg-[#25D366] text-black font-black uppercase text-[9px] tracking-[0.3em] hover:bg-[#20bd5a] transition-colors duration-300">
+                    <button class="w-full py-4 bg-[#25D366] text-black font-black uppercase text-[9px] tracking-[0.3em] hover:bg-[#20bd5a] transition-colors duration-300 rounded-sm">
                         Launch WhatsApp
                     </button>
                 </div>
 
-                <!-- Pathway 2: Project Brief -->
-                <div onclick="triggerEmail('Project Request')" 
+                <!-- Pathway 2: Project Brief Modal Trigger -->
+                <div onclick="openModal('Project Brief')" 
                      tabindex="0"
                      role="button"
-                     aria-label="Start Project Email Request"
-                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold"
+                     aria-label="Start Project Brief Modal"
+                     class="reveal tilt-card group bg-cyan-950/10 border border-cyan-500/20 hover:border-cyan-400 hover:bg-cyan-500/10 p-8 md:p-12 text-center flex flex-col justify-between rounded-sm transition-colors duration-500 focus:outline-none focus:ring-1 focus:ring-cyan-400"
                      style="transition-delay: 0.1s;">
                     <div>
                         <div class="mb-8 flex justify-center items-center h-12">
@@ -183,20 +249,20 @@
                         <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Start Project</h3>
                         <p class="text-gray-400 text-xs leading-relaxed mb-8">Formal inquiries for high-end digital design and development.</p>
                     </div>
-                    <button class="w-full py-4 bg-white text-black font-black uppercase text-[9px] tracking-[0.3em] hover:bg-amber-400 transition-colors duration-300">
+                    <button class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black uppercase text-[9px] tracking-[0.3em] hover:opacity-90 transition-opacity duration-300 rounded-sm">
                         Brief the Studio
                     </button>
                 </div>
 
-                <!-- Pathway 3: Partnership -->
-                <div onclick="triggerEmail('Partnership/Ad')" 
+                <!-- Pathway 3: Partnership Modal Trigger -->
+                <div onclick="openModal('Partnership / Ecosystem')" 
                      tabindex="0"
                      role="button"
-                     aria-label="Partnership Inquiry Email"
-                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold"
+                     aria-label="Partnership Inquiry Modal"
+                     class="reveal tilt-card group bg-cyan-950/10 border border-cyan-500/20 hover:border-violet-400 hover:bg-violet-500/10 p-8 md:p-12 text-center flex flex-col justify-between rounded-sm transition-colors duration-500 focus:outline-none focus:ring-1 focus:ring-violet-400"
                      style="transition-delay: 0.2s;">
                     <div>
-                        <div class="mb-8 flex justify-center items-center h-12 text-amber-500 group-hover:scale-110 transition-transform duration-300">
+                        <div class="mb-8 flex justify-center items-center h-12 text-violet-400 group-hover:scale-110 transition-transform duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -205,7 +271,7 @@
                         <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Partnership</h3>
                         <p class="text-gray-400 text-xs leading-relaxed mb-8">Collaborate or advertise within the GAW Inc. ecosystem.</p>
                     </div>
-                    <button class="w-full py-4 border border-white/20 text-white font-black uppercase text-[9px] tracking-[0.3em] group-hover:bg-white group-hover:text-black transition-colors duration-300">
+                    <button class="w-full py-4 border border-violet-500/40 text-violet-300 font-black uppercase text-[9px] tracking-[0.3em] group-hover:bg-violet-600 group-hover:text-white transition-colors duration-300 rounded-sm">
                         Collaborate
                     </button>
                 </div>
@@ -214,35 +280,103 @@
         </section>
     </main>
 
+    <!-- Glassmorphism Briefing Modal -->
+    <div id="brief-modal" class="fixed inset-0 z-[120] flex items-center justify-center bg-[#030712]/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500 p-6">
+        <div class="bg-[#0b1329] border border-cyan-500/30 w-full max-w-xl p-8 md:p-10 rounded-sm shadow-2xl relative transform scale-95 transition-transform duration-500" id="modal-container">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <span id="modal-category" class="text-[9px] uppercase tracking-[0.4em] text-cyan-400 font-bold">Studio Briefing</span>
+            <h3 class="text-3xl font-bold font-serif my-2" id="modal-title">Initiate Transmission</h3>
+            <p class="text-xs text-gray-400 mb-8">Submit parameters to connect directly with our engineering team.</p>
+            
+            <form id="brief-form" onsubmit="submitModalForm(event)" class="space-y-5">
+                <div>
+                    <label class="block text-[9px] uppercase tracking-[0.2em] font-semibold text-cyan-300/70 mb-2">Identification / Entity</label>
+                    <input type="text" id="form-name" required placeholder="e.g., Jane Doe / CyberCorp" class="w-full bg-cyan-950/30 border border-cyan-500/20 px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors rounded-sm">
+                </div>
+                <div>
+                    <label class="block text-[9px] uppercase tracking-[0.2em] font-semibold text-cyan-300/70 mb-2">Direct Email</label>
+                    <input type="email" id="form-email" required placeholder="name@domain.com" class="w-full bg-cyan-950/30 border border-cyan-500/20 px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors rounded-sm">
+                </div>
+                <div>
+                    <label class="block text-[9px] uppercase tracking-[0.2em] font-semibold text-cyan-300/70 mb-2">Scope Overview</label>
+                    <textarea id="form-details" rows="3" required placeholder="Describe core requirements, targets, or timeline..." class="w-full bg-cyan-950/30 border border-cyan-500/20 px-4 py-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition-colors resize-none rounded-sm"></textarea>
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black uppercase text-[9px] tracking-[0.3em] hover:opacity-90 transition-opacity duration-300 rounded-sm">
+                    Send Transmission
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="py-12 text-center border-t border-white/5 text-gray-500 text-[9px] uppercase tracking-[0.8em]">
+    <footer class="py-12 text-center border-t border-cyan-500/10 text-cyan-400/50 text-[9px] uppercase tracking-[0.8em]">
         © 2026 GAW Inc. • Accra
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
+        let currentScopeType = "Project Request";
+
         document.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
+            const customCursor = document.getElementById('custom-cursor');
+            const cursorRing = document.getElementById('cursor-ring');
 
-            // Handle preloader disappearance & intersection observer initialization
+            // Preloader Disappear & Intersection Observer
             window.addEventListener('load', () => {
                 setTimeout(() => {
                     loader.classList.add('opacity-0');
                     setTimeout(() => loader.remove(), 700);
 
-                    // Initialize Scroll Animations
-                    const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
                     const observer = new IntersectionObserver((entries, obs) => {
                         entries.forEach(entry => {
                             if (entry.isIntersecting) {
                                 entry.target.classList.add('active');
-                                obs.unobserve(entry.target); // Unobserve once animated
+                                obs.unobserve(entry.target);
                             }
                         });
-                    }, observerOptions);
+                    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
                     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
                 }, 800);
+            });
+
+            // Mouse Movement & Custom Cursor Tracking
+            document.addEventListener('mousemove', (e) => {
+                customCursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            });
+
+            // Expand Ring on Hoverable Elements
+            document.querySelectorAll('a, button, [role="button"], input, textarea').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorRing.classList.add('scale-150', 'border-cyan-400', 'bg-cyan-500/10');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorRing.classList.remove('scale-150', 'border-cyan-400', 'bg-cyan-500/10');
+                });
+            });
+
+            // 3D Tilt Effect on Cards
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
             });
         });
 
@@ -261,17 +395,42 @@
             }
         }
 
-        // Email Routing
-        function triggerEmail(type) {
-            const name = prompt("Identification Required: (Your Name or Brand)");
-            if (!name || name.trim() === "") return;
+        // Modal Controls
+        function openModal(type) {
+            currentScopeType = type;
+            document.getElementById('modal-category').innerText = `Studio Briefing • ${type}`;
+            const modal = document.getElementById('brief-modal');
+            const container = document.getElementById('modal-container');
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-95');
+            container.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('brief-modal');
+            const container = document.getElementById('modal-container');
+            
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+        }
+
+        // Handle Modal Form Submission & Mailto Generation
+        function submitModalForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const details = document.getElementById('form-details').value;
 
             const user = "avonxoase";
             const domain = "gmail.com";
-            const subject = `[GAW Inc. ${type}] - From ${name.trim()}`;
-            const body = `Inquiry Path: ${type}\nOrigin: ${name.trim()}\n\n[Describe your requirements below]`;
-            
+            const subject = `[GAW Inc. ${currentScopeType}] - From ${name}`;
+            const body = `Inquiry Type: ${currentScopeType}\nClient Name: ${name}\nClient Email: ${email}\n\nProject Scope & Requirements:\n${details}`;
+
             window.location.href = `mailto:${user}@${domain}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            closeModal();
+            document.getElementById('brief-form').reset();
         }
     </script>
 </body>
