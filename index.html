@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth bg-[#050505]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,206 +7,272 @@
     
     <link rel="icon" type="image/png" href="using.png">
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#BF953F',
+                        'gold-light': '#FCF6BA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --gold: #BF953F;
-            --gold-light: #FCF6BA;
-            --bg: #050505;
-        }
-
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg); color: #ffffff; font-family: 'Inter', sans-serif; }
-
+        /* Custom Keyframes and Utilities */
         .gold-gradient {
-            background: linear-gradient(to right, var(--gold), var(--gold-light), var(--gold));
+            background: linear-gradient(90deg, #BF953F, #FCF6BA, #BF953F);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: goldShine 5s linear infinite;
         }
 
-        @keyframes goldShine { to { background-position: 200% center; } }
-
-        /* The Heartbeat Bar Icon */
-        .five-icon {
-            display: flex;
-            gap: 2px;
-            align-items: flex-end;
-            height: 14px;
+        @keyframes goldShine { 
+            to { background-position: 200% center; } 
         }
-        .five-icon span {
-            width: 3px;
-            background: var(--gold);
+
+        /* Heartbeat Bar Icon */
+        .bar-pulse span {
+            background: #BF953F;
             border-radius: 1px;
             animation: barPulse 2s infinite ease-in-out;
         }
-        .five-icon span:nth-child(1) { height: 20%; animation-delay: 0.1s; }
-        .five-icon span:nth-child(2) { height: 40%; animation-delay: 0.2s; }
-        .five-icon span:nth-child(3) { height: 70%; animation-delay: 0.3s; }
-        .five-icon span:nth-child(4) { height: 90%; animation-delay: 0.4s; }
-        .five-icon span:nth-child(5) { height: 100%; animation-delay: 0.5s; }
+        .bar-pulse span:nth-child(1) { height: 20%; animation-delay: 0.1s; }
+        .bar-pulse span:nth-child(2) { height: 40%; animation-delay: 0.2s; }
+        .bar-pulse span:nth-child(3) { height: 70%; animation-delay: 0.3s; }
+        .bar-pulse span:nth-child(4) { height: 90%; animation-delay: 0.4s; }
+        .bar-pulse span:nth-child(5) { height: 100%; animation-delay: 0.5s; }
 
         @keyframes barPulse {
             0%, 100% { opacity: 0.4; transform: scaleY(1); }
             50% { opacity: 1; transform: scaleY(1.2); }
         }
 
-        /* Enriched Portfolio Interaction */
-        .project-card { cursor: pointer; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .project-img {
-            filter: grayscale(100%) brightness(0.6);
-            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        /* Scroll Reveal Animation */
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            will-change: opacity, transform;
         }
-        .project-card:hover .project-img {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.12);
+        .reveal.active { 
+            opacity: 1; 
+            transform: translateY(0); 
         }
-
-        /* Gateway Cards */
-        .gateway-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .gateway-card:hover {
-            border-color: var(--gold);
-            background: rgba(191, 149, 63, 0.05);
-            transform: translateY(-12px);
-        }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body>
+<body class="bg-[#050505] text-white font-sans antialiased selection:bg-amber-500 selection:text-black">
 
-    <div id="loader" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700">
+    <!-- Preloader -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700 pointer-events-none">
         <div class="flex flex-col items-center gap-6">
             <img src="using.png" alt="GAW Logo" class="w-20 h-20 animate-pulse">
             <h1 class="text-xl font-bold tracking-[1.2em] gold-gradient uppercase">GAW Inc.</h1>
         </div>
     </div>
 
-    <nav class="fixed w-full z-50 flex justify-between items-center px-8 py-6 backdrop-blur-xl bg-black/30 border-b border-white/5">
-        <div class="flex items-center gap-4">
-            <img src="using.png" alt="GAW" class="w-8 h-8">
-            <div class="text-xl font-black gold-gradient tracking-tighter">GAW Inc.</div>
-            <div class="five-icon ml-2 hidden sm:flex"><span></span><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.4em] font-bold">
-            <a href="#work" class="hover:text-amber-500 transition">Works</a>
-            <a href="#gateways" class="hover:text-amber-500 transition">Connect</a>
-        </div>
-    </nav>
-
-    <section class="h-screen flex flex-col justify-center items-center text-center px-6">
-        <div class="reveal">
-            <img src="using.png" alt="Logo" class="w-24 h-24 mx-auto mb-8 opacity-90 drop-shadow-[0_0_15px_rgba(191,149,63,0.3)]">
-            <h1 class="text-7xl md:text-[11rem] font-bold mb-4 leading-none" style="font-family: 'Playfair Display', serif;">
-                GAW <span class="gold-gradient italic">Inc.</span>
-            </h1>
-            <p class="text-gray-500 tracking-[0.7em] uppercase text-[9px] mb-12">The Ultimate Digital Authority</p>
-            <a href="#gateways" class="px-12 py-5 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] hover:bg-amber-600 transition-all">Establish Connection</a>
-        </div>
-    </section>
-
-    <section id="work" class="py-24 px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div class="reveal project-card aspect-video group">
-            <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000" class="project-img w-full h-full object-cover">
-        </div>
-        <div class="reveal project-card aspect-video group">
-            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" class="project-img w-full h-full object-cover">
-        </div>
-    </section>
-
-    <section id="gateways" class="py-32 px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-20 reveal">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4 italic">Direct <span class="gold-gradient">Pathways.</span></h2>
-            <p class="text-gray-500 text-[9px] uppercase tracking-[0.5em]">Secure Communications</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div onclick="handleWhatsApp()" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer">
-                <div>
-                    <div class="mb-8 flex justify-center">
-                        <img src="Wa-whatsapp-icon.svg" alt="WhatsApp" class="w-12 h-12">
-                    </div>
-                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Immediate Chat</h3>
-                    <p class="text-gray-500 text-xs mb-8">Direct line for consulting and real-time support.</p>
+    <!-- Header / Navigation -->
+    <header class="fixed w-full z-50">
+        <nav class="flex justify-between items-center px-6 md:px-12 py-5 backdrop-blur-xl bg-black/40 border-b border-white/5">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="using.png" alt="GAW" class="w-8 h-8 transition-transform group-hover:scale-105">
+                <span class="text-xl font-black gold-gradient tracking-tighter">GAW Inc.</span>
+                <div class="bar-pulse ml-2 hidden sm:flex gap-[2px] items-end h-3.5">
+                    <span class="w-[3px]"></span>
+                    <span class="w-[3px]"></span>
+                    <span class="w-[3px]"></span>
+                    <span class="w-[3px]"></span>
+                    <span class="w-[3px]"></span>
                 </div>
-                <button class="w-full py-4 bg-[#25D366] text-black font-black uppercase text-[9px] tracking-[0.3em]">Launch WhatsApp</button>
+            </a>
+            <div class="flex space-x-8 text-[10px] uppercase tracking-[0.4em] font-bold">
+                <a href="#work" class="text-gray-400 hover:text-amber-400 transition-colors duration-300">Works</a>
+                <a href="#gateways" class="text-gray-400 hover:text-amber-400 transition-colors duration-300">Connect</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
+            <div class="reveal max-w-4xl mx-auto">
+                <img src="using.png" alt="GAW Emblem" class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-8 opacity-90 drop-shadow-[0_0_20px_rgba(191,149,63,0.3)]">
+                <h1 class="text-6xl sm:text-8xl md:text-[11rem] font-bold mb-4 leading-none font-serif tracking-tight">
+                    GAW <span class="gold-gradient italic font-normal">Inc.</span>
+                </h1>
+                <p class="text-gray-400 tracking-[0.5em] md:tracking-[0.7em] uppercase text-[9px] sm:text-[11px] mb-12">The Ultimate Digital Authority</p>
+                <a href="#gateways" class="inline-block px-10 py-4 md:px-12 md:py-5 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] hover:bg-amber-400 hover:shadow-[0_0_25px_rgba(251,191,36,0.4)] transition-all duration-300 transform hover:-translate-y-0.5">
+                    Establish Connection
+                </a>
+            </div>
+        </section>
+
+        <!-- Portfolio Works Section -->
+        <section id="work" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                
+                <article class="reveal group relative aspect-video overflow-hidden rounded-sm border border-white/5 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1000" 
+                         alt="Digital Architecture Project" 
+                         loading="lazy"
+                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                </article>
+
+                <article class="reveal group relative aspect-video overflow-hidden rounded-sm border border-white/5 cursor-pointer" style="transition-delay: 0.15s;">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" 
+                         alt="Cyber Ecosystem Project" 
+                         loading="lazy"
+                         class="w-full h-full object-cover filter grayscale brightness-50 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Direct Pathways Section -->
+        <section id="gateways" class="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
+            <div class="text-center mb-16 md:mb-20 reveal">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 font-serif italic">Direct <span class="gold-gradient">Pathways.</span></h2>
+                <p class="text-gray-500 text-[9px] uppercase tracking-[0.5em]">Secure Communications</p>
             </div>
 
-            <div onclick="triggerEmail('Project Request')" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer" style="transition-delay: 0.1s;">
-                <div>
-                    <div class="mb-8 flex justify-center">
-                        <img src="using.png" alt="Project Icon" class="w-12 h-12 opacity-80 group-hover:opacity-100 transition-opacity">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Pathway 1: WhatsApp -->
+                <div onclick="handleWhatsApp()" 
+                     tabindex="0"
+                     role="button"
+                     aria-label="Launch WhatsApp Chat"
+                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold">
+                    <div>
+                        <div class="mb-8 flex justify-center items-center h-12">
+                            <img src="Wa-whatsapp-icon.svg" alt="WhatsApp" class="w-12 h-12 transition-transform group-hover:scale-110 duration-300">
+                        </div>
+                        <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Immediate Chat</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-8">Direct line for consulting and real-time support.</p>
                     </div>
-                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Start Project</h3>
-                    <p class="text-gray-500 text-xs mb-8">Formal inquiries for high-end digital design and development.</p>
+                    <button class="w-full py-4 bg-[#25D366] text-black font-black uppercase text-[9px] tracking-[0.3em] hover:bg-[#20bd5a] transition-colors duration-300">
+                        Launch WhatsApp
+                    </button>
                 </div>
-                <button class="w-full py-4 bg-white text-black font-black uppercase text-[9px] tracking-[0.3em]">Brief the Studio</button>
-            </div>
 
-            <div onclick="triggerEmail('Partnership/Ad')" class="gateway-card p-12 text-center reveal flex flex-col justify-between cursor-pointer" style="transition-delay: 0.2s;">
-                <div>
-                    <div class="mb-8 flex justify-center text-amber-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <!-- Pathway 2: Project Brief -->
+                <div onclick="triggerEmail('Project Request')" 
+                     tabindex="0"
+                     role="button"
+                     aria-label="Start Project Email Request"
+                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold"
+                     style="transition-delay: 0.1s;">
+                    <div>
+                        <div class="mb-8 flex justify-center items-center h-12">
+                            <img src="using.png" alt="Project Icon" class="w-12 h-12 opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                        </div>
+                        <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Start Project</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-8">Formal inquiries for high-end digital design and development.</p>
                     </div>
-                    <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Partnership</h3>
-                    <p class="text-gray-500 text-xs mb-8">Collaborate or advertise within the GAW Inc. ecosystem.</p>
+                    <button class="w-full py-4 bg-white text-black font-black uppercase text-[9px] tracking-[0.3em] hover:bg-amber-400 transition-colors duration-300">
+                        Brief the Studio
+                    </button>
                 </div>
-                <button class="w-full py-4 border border-white/20 text-white font-black uppercase text-[9px] tracking-[0.3em]">Collaborate</button>
+
+                <!-- Pathway 3: Partnership -->
+                <div onclick="triggerEmail('Partnership/Ad')" 
+                     tabindex="0"
+                     role="button"
+                     aria-label="Partnership Inquiry Email"
+                     class="reveal group bg-white/[0.02] border border-white/5 hover:border-gold hover:bg-[#BF953F]/5 p-8 md:p-12 text-center flex flex-col justify-between cursor-pointer rounded-sm transition-all duration-500 hover:-translate-y-2 focus:outline-none focus:ring-1 focus:ring-gold"
+                     style="transition-delay: 0.2s;">
+                    <div>
+                        <div class="mb-8 flex justify-center items-center h-12 text-amber-500 group-hover:scale-110 transition-transform duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold uppercase mb-4 tracking-tighter">Partnership</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-8">Collaborate or advertise within the GAW Inc. ecosystem.</p>
+                    </div>
+                    <button class="w-full py-4 border border-white/20 text-white font-black uppercase text-[9px] tracking-[0.3em] group-hover:bg-white group-hover:text-black transition-colors duration-300">
+                        Collaborate
+                    </button>
+                </div>
+
             </div>
+        </section>
+    </main>
 
-        </div>
-    </section>
-
-    <footer class="py-12 text-center border-t border-white/5 opacity-40 text-[9px] uppercase tracking-[1em]">
+    <!-- Footer -->
+    <footer class="py-12 text-center border-t border-white/5 text-gray-500 text-[9px] uppercase tracking-[0.8em]">
         © 2026 GAW Inc. • Accra
     </footer>
 
+    <!-- JavaScript Logic -->
     <script>
-        // Animations Loader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('loader').remove(), 700);
-                const obs = new IntersectionObserver((es) => {
-                    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-                }, { threshold: 0.1 });
-                document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-            }, 1000);
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+
+            // Handle preloader disappearance & intersection observer initialization
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loader.classList.add('opacity-0');
+                    setTimeout(() => loader.remove(), 700);
+
+                    // Initialize Scroll Animations
+                    const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+                    const observer = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                obs.unobserve(entry.target); // Unobserve once animated
+                            }
+                        });
+                    }, observerOptions);
+
+                    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                }, 800);
+            });
         });
 
-        // WhatsApp
+        // WhatsApp Redirect
         function handleWhatsApp() {
-            const n = "233270414145";
-            const m = encodeURIComponent("Hello GAW Inc., I'm reaching out through your platform.");
+            const phoneNumber = "233270414145";
+            const message = encodeURIComponent("Hello GAW Inc., I'm reaching out through your platform.");
+            
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                window.location.href = `whatsapp://send?phone=${n}&text=${m}`;
-                setTimeout(() => { window.location.href = `https://wa.me/${n}?text=${m}`; }, 500);
+                window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${message}`;
+                setTimeout(() => { 
+                    window.location.href = `https://wa.me/${phoneNumber}?text=${message}`; 
+                }, 500);
             } else {
-                window.open(`https://web.whatsapp.com/send?phone=${n}&text=${m}`, '_blank');
+                window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${message}`, '_blank', 'noopener,noreferrer');
             }
         }
 
-        // Email Routing to avonxoase@gmail.com
+        // Email Routing
         function triggerEmail(type) {
             const name = prompt("Identification Required: (Your Name or Brand)");
-            if (!name) return;
+            if (!name || name.trim() === "") return;
 
-            const u = "avonxoase";
-            const d = "gmail.com";
-            const subj = `[GAW Inc. ${type}] - From ${name}`;
-            const body = `Inquiry Path: ${type}\nOrigin: ${name}\n\n[Describe your requirements below]`;
+            const user = "avonxoase";
+            const domain = "gmail.com";
+            const subject = `[GAW Inc. ${type}] - From ${name.trim()}`;
+            const body = `Inquiry Path: ${type}\nOrigin: ${name.trim()}\n\n[Describe your requirements below]`;
             
-            window.location.href = `mailto:${u}@${d}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+            window.location.href = `mailto:${user}@${domain}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
     </script>
 </body>
-</html>        
+</html>
